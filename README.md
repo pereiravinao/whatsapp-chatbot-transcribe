@@ -31,4 +31,5 @@ To set up the service locally or on a server:
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/pereiravinao/whatsapp-chatbot-transcribe.git
-   cd whatsapp
+   cd whatsapp-chatbot-transcribe
+   ```
