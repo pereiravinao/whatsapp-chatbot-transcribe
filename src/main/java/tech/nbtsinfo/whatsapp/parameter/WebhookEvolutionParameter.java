@@ -1,9 +1,12 @@
-package tech.nbtsinfo.whatsapp.model;
+package tech.nbtsinfo.whatsapp.parameter;
 
-import java.io.Serializable;
+import tech.nbtsinfo.whatsapp.enums.MessageType;
+import tech.nbtsinfo.whatsapp.model.ContentMessage;
+import tech.nbtsinfo.whatsapp.model.WebhookEvolution;
+
 import java.util.Map;
 
-public class WebhookRequest implements Serializable {
+public class WebhookEvolutionParameter {
     private Body body;
 
 
@@ -47,6 +50,15 @@ public class WebhookRequest implements Serializable {
         public static class Data {
             private Key key;
             private Message message;
+            private String messageType;
+
+            public String getMessageType() {
+                return messageType;
+            }
+
+            public void setMessageType(String messageType) {
+                this.messageType = messageType;
+            }
 
             public Key getKey() {
                 return key;
@@ -82,6 +94,15 @@ public class WebhookRequest implements Serializable {
                 private Map<String, Object> imageMessage;
                 private Map<String, Object> documentMessage;
                 private Map<String, Object> extendedTextMessage;
+                private String base64;
+
+                public String getBase64() {
+                    return base64;
+                }
+
+                public void setBase64(String base64) {
+                    this.base64 = base64;
+                }
 
                 public String getConversation() {
                     return conversation;
@@ -126,4 +147,25 @@ public class WebhookRequest implements Serializable {
             }
         }
     }
+
+    public WebhookEvolution toModel() {
+        WebhookEvolution webhookEvolution = new WebhookEvolution();
+        if (this.getBody() != null) {
+            webhookEvolution.setInstance(this.getBody().getInstance());
+            webhookEvolution.setApikey(this.getBody().getApikey());
+            if (this.getBody().getData() != null && this.getBody().getData().getKey() != null) {
+                webhookEvolution.setSender(this.getBody().getData().getKey().getRemoteJid());
+                webhookEvolution.setRemoteJid(this.getBody().getData().getKey().getRemoteJid());
+            }
+            ContentMessage contentMessage = new ContentMessage();
+            if (this.getBody().getData().getMessage() != null) {
+                contentMessage.setText(this.getBody().getData().getMessage().getConversation());
+                contentMessage.setType(MessageType.fromValue(this.getBody().getData().getMessageType()));
+                contentMessage.setBase64(this.getBody().getData().getMessage().getBase64());
+            }
+            webhookEvolution.setMessage(contentMessage);
+        }
+        return webhookEvolution;
+    }
+
 }
