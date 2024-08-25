@@ -4,6 +4,7 @@ FROM openjdk:21-rc-jdk
 ENV LANG=C.UTF-8
 ENV JAVA_VERSION=21
 
+
 RUN mkdir /app
 
 # Define o diretório de trabalho dentro do container
