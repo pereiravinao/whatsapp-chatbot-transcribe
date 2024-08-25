@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>tech.nbtsinfo</groupId>
-    <artifactId>whatsapp</artifactId>
+    <artifactId>whatsapp-chatbot-transcribe</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>whatsapp</name>
     <description>whatsapp</description>
