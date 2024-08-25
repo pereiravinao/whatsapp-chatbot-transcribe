@@ -56,6 +56,11 @@
             <version>5.3.23</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-docker-compose</artifactId>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -73,30 +78,17 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                </configuration>
             </plugin>
             <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>3.3.1</version>
-                <configuration>
-                    <from>
-                        <image>eclipse-temurin:21-jre</image>
-                    </from>
-                    <to>
-                        <image>whatsapp-chatbot-transcribe:v1.0</image>
-                    </to>
-                    <container>
-                        <ports>
-                            <port>8443</port>
-                        </ports>
-                        <environment>
-                            <!--suppress UnresolvedMavenProperty -->
-                            <GROQ_API_KEY>${env.GROQ_API_KEY}</GROQ_API_KEY>
-                        </environment>
-                    </container>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
