@@ -82,11 +82,10 @@
                 <version>3.3.1</version>
                 <configuration>
                     <from>
-                        <image>eclipse-temurin:21-jre</image> <!-- Use uma imagem base compatível com Java 21 -->
+                        <image>eclipse-temurin:21-jre</image>
                     </from>
                     <to>
-                        <!--suppress UnresolvedMavenProperty -->
-                        <image>${docker.username}/whatsapp-chatbot-transcribe:v1.0</image>
+                        <image>vpereira007/whatsapp-chatbot-transcribe:v1.0</image>
                     </to>
                     <container>
                         <ports>
