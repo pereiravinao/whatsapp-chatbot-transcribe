@@ -76,6 +76,29 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <from>
+                        <image>eclipse-temurin:21-jre</image> <!-- Use uma imagem base compatível com Java 21 -->
+                    </from>
+                    <to>
+                        <!--suppress UnresolvedMavenProperty -->
+                        <image>${docker.username}/whatsapp-chatbot-transcribe:v1.0</image>
+                    </to>
+                    <container>
+                        <ports>
+                            <port>8443</port>
+                        </ports>
+                        <environment>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <GROQ_API_KEY>${env.GROQ_API_KEY}</GROQ_API_KEY>
+                        </environment>
+                    </container>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
