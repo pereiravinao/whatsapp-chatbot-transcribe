@@ -3,6 +3,7 @@ package tech.nbtsinfo.whatsapp.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Response;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.multipart.MultipartFile;
 import tech.nbtsinfo.whatsapp.enums.MessageType;
 import tech.nbtsinfo.whatsapp.model.request.EvolutionApiRequestBody;
@@ -23,14 +24,11 @@ import java.util.Base64;
 @Service
 public class WhatsAppService {
 
-    @Value("${whatsapp.group.id.family}")
-    private String familyGroupId;
+    @Autowired
+    private Environment environment;
 
-    @Value("${whatsapp.group.id.home}")
-    private String homeGroupId;
-
-    @Value("${groq.client.token}")
-    private String groqClientToken;
+    @Value("${groq.client.token:}")
+    private String groqClientToken = this.environment.getProperty("groq.client.token");
 
     @Autowired
     private EvolutionApiClient evolutionApiClient;
