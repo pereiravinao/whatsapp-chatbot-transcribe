@@ -28,7 +28,7 @@ public class WhatsAppService {
     private Environment environment;
 
     @Value("${groq.client.token:}")
-    private String groqClientToken = this.environment.getProperty("groq.client.token");
+    private String groqClientToken;
 
     @Autowired
     private EvolutionApiClient evolutionApiClient;
