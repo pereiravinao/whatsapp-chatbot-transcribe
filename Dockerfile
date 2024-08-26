@@ -4,7 +4,6 @@ FROM openjdk:21-rc-jdk
 ENV LANG=C.UTF-8
 ENV JAVA_VERSION=21
 
-
 RUN mkdir /app
 
 # Define o diretório de trabalho dentro do container
@@ -14,7 +13,7 @@ WORKDIR /app
 COPY target/*.jar /app/whatsapp-chatbot-transcribe.jar
 
 # Comando para rodar a aplicação
-CMD ["java", "-jar", "app/whatsapp-chatbot-transcribe.jar"]
+CMD ["java", "-jar", "/app/whatsapp-chatbot-transcribe.jar"]
 
 # Expondo a porta 8443
 EXPOSE 8443
