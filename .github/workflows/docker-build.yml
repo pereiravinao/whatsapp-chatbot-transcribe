@@ -17,30 +17,25 @@ jobs:
           java-version: '21'
 
       - name: Build with Maven
-      - shell: bash
         run: mvn clean install
 
       - name: Build Docker image
-      - shell: bash
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        run: docker build -t "$DOCKER_USERNAME"/whatsapp-chatbot-transcribe:v1.1 .
+        run: docker build -t $DOCKER_USERNAME/whatsapp-chatbot-transcribe:v1.1 .
 
       - name: Log in to Docker Hub
-      - shell: bash
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
 
       - name: Push Docker image
-      - shell: bash
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        run: docker push "$DOCKER_USERNAME"/whatsapp-chatbot-transcribe:v1.1
+        run: docker push $DOCKER_USERNAME/whatsapp-chatbot-transcribe:v1.1
 
       - name: Clean up Docker images
-      - shell: bash
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        run: docker rmi "$DOCKER_USERNAME"/whatsapp-chatbot-transcribe:v1.1
+        run: docker rmi $DOCKER_USERNAME/whatsapp-chatbot-transcribe:v1.1
