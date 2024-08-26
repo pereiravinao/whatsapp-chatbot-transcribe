@@ -24,6 +24,7 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         run: docker build -t $DOCKER_USERNAME/whatsapp-chatbot-transcribe:v1.1 .
 
+
       - name: Log in to Docker Hub
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
