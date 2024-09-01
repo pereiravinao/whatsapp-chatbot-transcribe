@@ -6,6 +6,7 @@ public class ContentMessage {
     private MessageType type;
     private String text;
     private String base64;
+    private String mediaUrl;
 
     public ContentMessage() {
     }
@@ -32,5 +33,13 @@ public class ContentMessage {
 
     public void setBase64(String base64) {
         this.base64 = base64;
+    }
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
     }
 }

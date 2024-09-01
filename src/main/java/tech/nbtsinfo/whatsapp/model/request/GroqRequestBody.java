@@ -14,9 +14,14 @@ public class GroqRequestBody implements Serializable {
 
     private String language = "pt";
     private MultipartFile file;
+    private String url;
 
     public GroqRequestBody(MultipartFile file) {
         this.file = file;
+    }
+
+    public GroqRequestBody(String url) {
+        this.url = url;
     }
 
     public String getModel() {
@@ -57,5 +62,13 @@ public class GroqRequestBody implements Serializable {
 
     public void setFile(MultipartFile file) {
         this.file = file;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

@@ -4,6 +4,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+.env
+Dockerfile
+compose.yaml
+
 ### STS ###
 .apt_generated
 .classpath
