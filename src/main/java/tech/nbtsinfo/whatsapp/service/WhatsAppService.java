@@ -46,7 +46,7 @@ public class WhatsAppService {
 
 
         String aiResponse = this.processMessageReceived(request);
-        if (aiResponse == null || aiResponse.isEmpty())  return;
+        if (aiResponse == null || aiResponse.isEmpty()) return;
 
         this.sendTextMessage(request, aiResponse);
 
@@ -62,14 +62,18 @@ public class WhatsAppService {
         }
 
         if (request.getMessage().getType().equals(MessageType.AUDIO)) {
-            aiResponse = this.transcriptionMessage(request);
+            if (request.getMessage().getMediaUrl() != null) {
+                aiResponse = this.transcriptionMessageWithUrl(request);
+            } else if (request.getMessage().getBase64() != null) {
+                aiResponse = this.transcriptionMessageWithBase64(request);
+            }
         }
-
         return aiResponse;
     }
 
     private void sendTextMessage(WebhookEvolution request, String aiResponse) {
-        if (request == null || aiResponse == null || aiResponse.isEmpty() || request.getRemoteJid() == null || request.getApikey() == null || request.getInstance() == null) return;
+        if (request == null || aiResponse == null || aiResponse.isEmpty() || request.getRemoteJid() == null || request.getApikey() == null || request.getInstance() == null)
+            return;
 
         String numberPhone = request.getRemoteJid().replace("@s.whatsapp.net", "");
         if (numberPhone.isEmpty()) return;
@@ -78,10 +82,8 @@ public class WhatsAppService {
         this.evolutionApiClient.sendTextMessage(request.getInstance(), requestBody, request.getApikey());
     }
 
-    public String transcriptionMessage(WebhookEvolution request) {
-        if (request == null) return null;
-        MultipartFile audioFile = this.convertBase64ToMultipartFile(request.getMessage().getBase64());
-        GroqRequestBody requestBody = new GroqRequestBody(audioFile);
+    public String transcriptionMessage(GroqRequestBody requestBody) {
+        if (requestBody == null) return null;
 
         try (Response response = this.sendTranscriptionRequest(requestBody)) {
             if (response == null || response.status() != 200 || response.body() == null) return null;
@@ -92,6 +94,21 @@ public class WhatsAppService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public String transcriptionMessageWithBase64(WebhookEvolution request) {
+        if (request == null) return null;
+        MultipartFile audioFile = this.convertBase64ToMultipartFile(request.getMessage().getBase64());
+        GroqRequestBody requestBody = new GroqRequestBody(audioFile);
+
+        return this.transcriptionMessage(requestBody);
+    }
+
+    public String transcriptionMessageWithUrl(WebhookEvolution request) {
+        if (request == null) return null;
+        String url = request.getMessage().getMediaUrl();
+        GroqRequestBody requestBody = new GroqRequestBody(url);
+        return this.transcriptionMessage(requestBody);
     }
 
     private Response sendTranscriptionRequest(GroqRequestBody requestBody) throws IOException {
