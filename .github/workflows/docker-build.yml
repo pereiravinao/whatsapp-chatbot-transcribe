@@ -20,9 +20,7 @@ jobs:
         run: mvn clean install
 
       - name: Build Docker image
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        run: docker build -t $DOCKER_USERNAME/whatsapp-chatbot-transcribe:v1.1 .
+        run: docker build -t vpereira007/whatsapp-chatbot-transcribe:v1.1 .
 
 
       - name: Log in to Docker Hub
@@ -32,11 +30,7 @@ jobs:
         run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
 
       - name: Push Docker image
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        run: docker push $DOCKER_USERNAME/whatsapp-chatbot-transcribe:v1.1
+        run: docker push vpereira007/whatsapp-chatbot-transcribe:v1.1
 
       - name: Clean up Docker images
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        run: docker rmi $DOCKER_USERNAME/whatsapp-chatbot-transcribe:v1.1
+        run: docker rmi vpereira007/whatsapp-chatbot-transcribe:v1.1
