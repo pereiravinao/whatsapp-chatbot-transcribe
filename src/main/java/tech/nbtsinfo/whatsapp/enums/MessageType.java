@@ -1,7 +1,7 @@
 package tech.nbtsinfo.whatsapp.enums;
 
 public enum MessageType {
-    TEXT("text"),
+    TEXT("extendedTextMessage"),
     IMAGE("imageMessage"),
     VIDEO("videoMessage"),
     AUDIO("audioMessage"),
