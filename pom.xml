@@ -12,7 +12,7 @@
 
     <groupId>tech.nbtsinfo</groupId>
     <artifactId>whatsapp-chatbot-transcribe</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.2</version>
     <name>whatsapp</name>
     <description>whatsapp</description>
 
